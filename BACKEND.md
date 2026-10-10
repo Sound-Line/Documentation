@@ -20,7 +20,7 @@ Backend музыкального сервиса Sound Line написан на C
 - Docker Compose
 
 ## Архитектура
-
+```
 Frontend
    |
    | HTTP
@@ -32,6 +32,7 @@ ASP.NET Core Backend
    |
    +------> MinIO
             аудиофайлы
+```
 
 PostgreSQL используется для хранения информации о треках, исполнителях, пользователях, альбомах, плейлистах и других сущностях.
 
@@ -55,7 +56,7 @@ Backend возвращает информацию о треках, включа�
 
 ### Загрузка трека
 
-POST /api/tracks/upload
+```POST /api/tracks/upload```
 
 Backend принимает:
 
@@ -80,7 +81,7 @@ Backend принимает:
 
 ### Воспроизведение трека
 
-GET /api/tracks/{id}/audio
+```GET /api/tracks/{id}/audio```
 
 Backend находит трек в PostgreSQL, получает путь к аудиофайлу и загружает его из MinIO.
 
@@ -100,31 +101,14 @@ music-minio
 
 Для запуска:
 
+```
 cd Data
 docker compose up -d --build
+```
 
 Для проверки:
 
+```
 docker ps
+```
 
-## Структура Backend
-
-soundline-backend/
-│
-├── Dockerfile
-├── README.md
-├── MusicService.Api.slnx
-│
-└── MusicService.Api/
-    ├── Program.cs
-    ├── appsettings.json
-    │
-    ├── Data/
-    │   └── MusicDbContext.cs
-    │
-    └── Models/
-        ├── Track.cs
-        ├── Artist.cs
-        ├── Album.cs
-        ├── User.cs
-        └── ...
