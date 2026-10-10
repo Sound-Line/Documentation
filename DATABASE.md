@@ -34,17 +34,27 @@
 ## 2. ER-диаграмма
 
 ```
-users ──1:N──► playlists ──1:N──► playlist_tracks ◄──N:1── tracks
+users ──1:N──► artists (created_by_user_id)
+  │
+  ├──1:N──► playlists ──1:N──► playlist_tracks ◄──N:1── tracks
   │                                                          ▲
-  │                                                          │
   ├──1:N──► plays ◄──────────────────────────────────────────┤
   ├──1:N──► likes ◄──────────────────────────────────────────┤
   ├──1:N──► listening_history ◄──────────────────────────────┤
   ├──1:N──► devices                                          │
   ├──1:N──► tracks (uploaded_by_user_id) ────────────────────┤
-  └──M:N──► artist_followers ◄──M:N── artists ──1:N──► tracks│
-                                        │                    │
-                                        └──1:N──► albums ────┘
-                                        (album_id — опционален)
+  ├──1:N──► artist_followers ──N:1──► artists ──1:N──► tracks│
+  │                                       │                  │
+  │                                       └──1:N──► albums ──┘
+  │                                       (album_id — опционален)
+  │
+  └──1:N──► listening_rooms (host_user_id)
+                 │
+                 ├──1:N──► room_participants ◄──N:1── users
+                 │
+                 ├──1:N──► room_queue ────────N:1──► tracks
+                 │
+                 └──1:N──► room_play_history ─N:1──► tracks
 
 genres ──1:N──► tracks
+```
